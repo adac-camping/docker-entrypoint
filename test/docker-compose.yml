@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  has-secrets:
+    build: .
+    environment:
+      - JUST_AN_ENV_VAR=nothing-else
+      - "SECRET_ENV_VAR=DOCKER-SECRET->secret"
+    secrets:
+      - secret
+
+secrets:
+  secret: { file: ./secret.txt }
