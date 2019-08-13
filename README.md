@@ -13,7 +13,10 @@ FROM alpine
 
 ...
 
-RUN apk --update-cache add ca-certificates wget && update-ca-certificates && wget https://raw.githubusercontent.com/adac-camping/docker-entrypoint/master/entrypoint.sh && chmod +x entrypoint.sh
+RUN apk --update-cache add ca-certificates wget && \
+    update-ca-certificates && \
+    wget https://raw.githubusercontent.com/adac-camping/docker-entrypoint/master/entrypoint.sh && \
+    chmod +x entrypoint.sh
 
 ...
 
