@@ -49,18 +49,25 @@ env_secrets_expand
 pid=0
 
 term_handler() {
+  echo "Signal received: SIGTERM"
   if [ $pid -ne 0 ]; then
+    echo "Killing CMD"
     kill -SIGTERM "$pid"
     wait "$pid"
   fi
   exit 143; # 128 + 15 -- SIGTERM
 }
 
-trap 'kill ${!}; term_handler' SIGTERM
+echo "Setting up SIGTERM handler"
+trap term_handler TERM
 
+echo "Starting CMD"
 exec "$@" &
 
 pid="$!"
+echo "Waiting for CMD to finish"
+wait
+exit
 
 # wait forever
 while true
